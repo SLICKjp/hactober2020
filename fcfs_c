@@ -1,0 +1,73 @@
+# include<stdio.h>
+
+int main()
+{
+    int n,m,k;
+
+    printf("ENTER THE NUMBER OF PROCESSES:");
+    scanf("%d",&n);
+    int processes[n];
+     int  burst_time[n];
+    for(int k=0;k<n;k++)
+    {
+        processes[k]=k+1;
+    }
+    printf("ENTER THE BURST TIME OF THE PROCESSES:\n");
+    for(m=0;m<n;m++)
+    {
+
+
+    scanf("%d,",&burst_time[m]);
+    }
+
+
+    Time(processes, n,  burst_time);
+
+}
+void Time(int processes[],int n,int bt[])
+{   int totalWT=0,totalTAT=0;
+    float avg_wt,avg_tat;
+
+    int wt[n];
+    int t[n];
+
+    wt[0]=0;
+    for(int i=1;i<n;i++)
+    {
+        wt[i]=wt[i-1]+bt[i-1];
+
+    }
+    for(int h=0;h<n;h++)
+    {
+        t[h]=bt[h]+wt[h];
+    }
+
+    printf("PROCESS     BURST TIME     WAITING TIME       TURN AROUND TIME\n");
+    for(int x=0;x<n;x++)
+    {
+
+    totalWT=totalWT+wt[x];
+    totalTAT=totalTAT+t[x];
+    printf("  %d",processes[x]);
+    printf("           %d",bt[x]);
+    printf("              %d",wt[x]);
+    printf("                    %d",t[x]);
+    printf("\n");
+
+    }
+avg_wt=(float)totalWT/(float)n;
+avg_tat=(float)totalTAT/(float)n;
+printf("\n");
+printf("TOTAL WAITING TIME=%d",totalWT);
+printf("\n");
+printf("TOTAL TURN AROUND TIME=%d",totalTAT);
+printf("\n");
+printf("AVERAGE WAITING TIME=%f",avg_wt);
+printf("\n");
+printf("AVERAGE TURN AROUND TIME=%f",avg_tat);
+printf("\n");
+printf("\n");
+
+
+}
+
